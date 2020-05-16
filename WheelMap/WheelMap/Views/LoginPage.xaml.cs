@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WheelMap.Models;
 using WheelMap.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -38,11 +39,36 @@ namespace WheelMap.Views
 
                     await Task.Delay(3000);
 
-                    await DisplayAlert("Success", "Login successful", "Ok");
+                    var loginUser = new Account
+                    {
+                        Email = emailField,
+                        Password = passwordField
+                    };
+                    var loggedIn = App.AccountRepo.Login(loginUser);
+
+                    if (loggedIn >= 1)
+                    {
+                        // Get User Full Name
+                        var fullName = App.AccountRepo.Get(loginUser.Email);
+
+                        // Success: Logged In
+                        await DisplayAlert("Login Successful", $"Welcome, {fullName.Name}", "Ok");
+                        await this.Navigation.PushAsync(new IntroPage());
+                    }
+                    else if (loggedIn == 0)
+                    {
+                        // Password Exist
+                        await DisplayAlert("Password Incorrect", "You entered an incorrect password", "Try again");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Account with this email does not exist", "Sign Up");
+
+                        // Go to Sign up form
+                        SignUpChangeBtn_Tapped(sender, e);
+                    }
 
                     loginVm.IsBusy = false;
-
-                    await this.Navigation.PushAsync(new IntroPage());
                 }
                 else
                 {
@@ -70,13 +96,30 @@ namespace WheelMap.Views
 
                     await Task.Delay(3000);
 
-                    await DisplayAlert("Success", "Account created successfully", "Login");
+                    var newAccount = App.AccountRepo.Add(new Account
+                    {
+                        Name = nameField,
+                        Email = emailField,
+                        Password = passwordField
+                    });
+
+                    if (newAccount >= 1)
+                    {
+                        await DisplayAlert("Success", "Account created successfully", "Login");
+
+                        // Success: Now Login User / Show Login Form
+                        LoginChangeBtn_Tapped(sender, e);
+                    }
+                    else if (newAccount == -1)
+                    {
+                        await DisplayAlert("Account exist", "Account with this email already exist", "Change Email");
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Couldn't create new account", "Try Again");
+                    }
 
                     loginVm.IsBusy = false;
-
-                    // Success: Now Login User / Show Login Form
-                    LoginChangeBtn_Tapped(sender, e);
-
                     //await this.Navigation.PushAsync(new IntroPage());
                 }
                 else
