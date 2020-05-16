@@ -8,6 +8,25 @@ namespace WheelMap
 {
     public partial class App : Application
     {
+        private static AccountRepository _accountRepo;
+        public static AccountRepository AccountRepo
+        {
+            get
+            {
+                if (_accountRepo == null)
+                {
+                    // Database Name
+                    const string dbName = "WheelMap.db3";
+                    // Local Database Full Path
+                    string dbPath = DependencyService.Get<IFilePathService>().GetLocalFilePath(dbName);
+                    // Initialize a new Account Repository
+                    _accountRepo = new AccountRepository(dbPath);
+                }
+
+                return _accountRepo;
+            }
+        }
+
 
         public App()
         {
