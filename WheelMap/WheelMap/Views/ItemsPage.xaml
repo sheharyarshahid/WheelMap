@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WheelMap.Views.ItemsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="BrowseItemsPage"
+    Title="{Binding Title}"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <GridItemsLayout
+            x:Key="CollectionItemsLayout"
+            Orientation="Vertical"
+            Span="1"
+            VerticalItemSpacing="22" />
+
+        <DataTemplate x:Key="PlacesItemTemplate">
+            <StackLayout>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected" />
+                </StackLayout.GestureRecognizers>
+                <pv:PancakeView CornerRadius="8" HasShadow="True">
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="150"
+                        Source="{Binding Thumbnail}" />
+                </pv:PancakeView>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackLayout Spacing="0">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            Text="{Binding Name}" />
+                        <Label HorizontalOptions="StartAndExpand" Text="{Binding Location}" />
+                    </StackLayout>
+
+                    <Label
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="24"
+                        HorizontalOptions="End"
+                        Text="&#xF193;"
+                        TextColor="{StaticResource PrimaryColor}"
+                        VerticalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsWheelChair}"
+                                TargetType="Label"
+                                Value="False">
+                                <Setter Property="TextColor" Value="LightCoral" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </Grid>
+
+            </StackLayout>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="AddItem_Clicked" Text="Add" />
+    </ContentPage.ToolbarItems>
+
+    <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView
+            x:Name="ItemsCollectionView"
+            Margin="16"
+            ItemTemplate="{StaticResource PlacesItemTemplate}"
+            ItemsLayout="{StaticResource CollectionItemsLayout}"
+            ItemsSource="{Binding Places}" />
+    </RefreshView>
+</ContentPage>

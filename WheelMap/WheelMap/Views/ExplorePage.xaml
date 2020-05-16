@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WheelMap.Views.ExplorePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xamap="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Aqua">
+            <Image
+                Aspect="AspectFill"
+                Source="map_static.png"
+                VerticalOptions="FillAndExpand" />
+
+            <Grid Margin="16" VerticalOptions="Start">
+                <Grid BackgroundColor="{StaticResource NavigationPrimary}" Opacity="0.7" />
+
+                <StackLayout
+                    Padding="12"
+                    Orientation="Horizontal"
+                    VerticalOptions="Center">
+                    <Label
+                        FontFamily="{StaticResource FontAwesomeSolid}"
+                        FontSize="Medium"
+                        Text="&#xF3C5;"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        FontSize="Medium"
+                        Text="Rawalpindi"
+                        TextColor="White" />
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

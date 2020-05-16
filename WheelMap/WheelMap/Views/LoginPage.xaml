@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WheelMap.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    BackgroundColor="White"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <!--  Title  -->
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <!--<Label
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    FontSize="50"
+                    HorizontalOptions="Center"
+                    Text="&#xF193;"
+                    TextColor="#2A69B0" />-->
+                <Image Source="wheelchair.png" WidthRequest="60" />
+                <Label FontSize="Title" Text="Wheel Map" />
+            </StackLayout>
+
+            <!--  Login  -->
+            <StackLayout
+                x:Name="LoginPanel"
+                Grid.Row="1"
+                Margin="16"
+                IsVisible="False"
+                Spacing="16">
+                <StackLayout.Resources>
+                    <Style TargetType="Entry">
+                        <Setter Property="PlaceholderColor" Value="LightGray" />
+                    </Style>
+                </StackLayout.Resources>
+
+                <Entry x:Name="EmailLogin" Placeholder="Email Address" />
+
+                <Entry
+                    x:Name="PasswordLogin"
+                    IsPassword="True"
+                    Placeholder="Password" />
+
+                <!--  Footer  -->
+                <StackLayout Margin="0,12,0,0" Spacing="12">
+                    <Button
+                        x:Name="LoginBtn"
+                        BackgroundColor="#24BE92"
+                        Text="Login"
+                        TextColor="White" />
+
+                    <Label HorizontalOptions="Center" Text="---------   OR   ----------" />
+
+                    <Label
+                        x:Name="SignupChangeBtn"
+                        HorizontalOptions="Center"
+                        Text="Create new account">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="SignUpChangeBtn_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+
+            <!--  Sign up  -->
+            <StackLayout
+                x:Name="SignUpPanel"
+                Grid.Row="1"
+                Margin="16"
+                IsVisible="True"
+                Spacing="20">
+                <StackLayout.Resources>
+                    <Style TargetType="Entry">
+                        <Setter Property="PlaceholderColor" Value="LightGray" />
+                    </Style>
+                </StackLayout.Resources>
+
+                <Entry x:Name="NameSignup" Placeholder="Full Name" />
+
+                <Entry x:Name="EmailSignup" Placeholder="Email Address" />
+
+                <Entry
+                    x:Name="PasswordSignup"
+                    IsPassword="True"
+                    Placeholder="Password" />
+
+                <!--  Footer  -->
+                <StackLayout Margin="0,12,0,0" Spacing="12">
+                    <Button
+                        x:Name="SignupBtn"
+                        BackgroundColor="#24BE92"
+                        Text="Sign Up"
+                        TextColor="White" />
+                    <Label HorizontalOptions="Center" Text="---------   OR   ----------" />
+
+                    <Label
+                        x:Name="LoginChangeBtn"
+                        HorizontalOptions="Center"
+                        Text="Login">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="LoginChangeBtn_Tapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+            </StackLayout>
+
+            <!--  Loading Panel  -->
+            <Grid
+                x:Name="LoadingPanel"
+                Grid.RowSpan="2"
+                IsVisible="{Binding IsBusy}">
+                <Grid
+                    BackgroundColor="White"
+                    IsVisible="{Binding IsBusy}"
+                    Opacity="0.4" />
+
+                <ActivityIndicator
+                    HeightRequest="50"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    Scale="0.1"
+                    WidthRequest="50" />
+            </Grid>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
