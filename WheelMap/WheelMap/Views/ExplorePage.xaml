@@ -3,23 +3,36 @@
     x:Class="WheelMap.Views.ExplorePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WheelMap.Controls"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xamap="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
     NavigationPage.HasNavigationBar="False"
     mc:Ignorable="d">
     <ContentPage.Content>
-        <Grid BackgroundColor="Aqua">
-            <Image
-                Aspect="AspectFill"
-                Source="map_static.png"
-                VerticalOptions="FillAndExpand" />
+        <Grid>
+            <maps:Map x:Name="map" IsShowingUser="True">
+                <x:Arguments>
+                    <maps:MapSpan>
+                        <x:Arguments>
+                            <maps:Position>
+                                <x:Arguments>
+                                    <x:Double>33.5651</x:Double>
+                                    <x:Double>73.0169</x:Double>
+                                </x:Arguments>
+                            </maps:Position>
+                            <x:Double>0.01</x:Double>
+                            <x:Double>0.4</x:Double>
+                        </x:Arguments>
+                    </maps:MapSpan>
+                </x:Arguments>
+            </maps:Map>
 
-            <Grid Margin="16" VerticalOptions="Start">
+            <Grid Margin="12,11,60,0" VerticalOptions="Start">
                 <Grid BackgroundColor="{StaticResource NavigationPrimary}" Opacity="0.7" />
 
                 <StackLayout
-                    Padding="12"
+                    Padding="12,0"
                     Orientation="Horizontal"
                     VerticalOptions="Center">
                     <Label
@@ -28,8 +41,10 @@
                         Text="&#xF3C5;"
                         TextColor="White"
                         VerticalOptions="Center" />
-                    <Label
-                        FontSize="Medium"
+
+                    <controls:MyEntry
+                        Margin="-2"
+                        HorizontalOptions="FillAndExpand"
                         Text="Rawalpindi"
                         TextColor="White" />
                 </StackLayout>

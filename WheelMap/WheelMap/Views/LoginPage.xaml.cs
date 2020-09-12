@@ -53,6 +53,11 @@ namespace WheelMap.Views
 
                         // Success: Logged In
                         await DisplayAlert("Login Successful", $"Welcome, {fullName.Name}", "Ok");
+
+                        // Reset Login Fields
+                        EmailLogin.Text = string.Empty;
+                        PasswordLogin.Text = string.Empty;
+
                         await this.Navigation.PushAsync(new IntroPage());
                     }
                     else if (loggedIn == 0)
@@ -109,6 +114,11 @@ namespace WheelMap.Views
 
                         // Success: Now Login User / Show Login Form
                         LoginChangeBtn_Tapped(sender, e);
+
+                        // Reset Sign Up fields
+                        NameSignup.Text = string.Empty;
+                        EmailSignup.Text = string.Empty;
+                        PasswordSignup.Text = string.Empty;
                     }
                     else if (newAccount == -1)
                     {
